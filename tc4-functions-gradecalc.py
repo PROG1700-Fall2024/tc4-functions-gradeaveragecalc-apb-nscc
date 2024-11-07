@@ -8,7 +8,8 @@
 
 #Initialization
 
-classes = ["PROG1700", "NETW1700", "OSYS1200", "WEBD1000", "DBAS1007"]
+classes = ["PROG1700", "NETW1700", "OSYS1200", "WEBD1000", "COMM1700", "DBAS1007"]
+grades = [] #This is to hold the final grade of each course
 numericGrade = 0.0 #Moved this here so it doesn't get messed up if I change main() too much
 finalGrade = [] #To hold final grades in corresponding indexes to classes list
 GPA = 0.0 #Final Grade Point Average (Normally I wouldn't use abbreviations/acronyms but everyone knows what a GPA is)
@@ -34,14 +35,14 @@ def Modifier(_modifier, _letterGrade, _numericGrade):
     if _modifier == "+":
         if _letterGrade != "A" and _letterGrade != "F": # Plus is not valid on A or F
             _numericGrade += 0.3
-        elif _modifier == "-":
-            if _letterGrade != "F":     # Minus is not valid on F
-                _numericGrade -= 0.3
-        #else TODO ERROR CHECKING WILL GO HERE  
+    elif _modifier == "-":
+        if _letterGrade != "F":     # Minus is not valid on F
+            _numericGrade -= 0.3
+    #else TODO ERROR CHECKING WILL GO HERE  
     return _numericGrade
 
 #Convert letter grade to number
-def ConvertLetterToNumber(_letterGrade:str):
+def ConvertLetterToNumber(_letterGrade):
     if _letterGrade == "A":
         _numericGrade = 4.0
     elif _letterGrade == "B":
@@ -57,6 +58,12 @@ def ConvertLetterToNumber(_letterGrade:str):
         #print("You entered an invalid letter grade.") #come back to this later
         pass #TODO ERROR CHECKING WILL GO HERE    
     return _numericGrade
+
+def CalculateGPA(_GPA): #I had a simple solution to increment GPA by the numericValue each loop and then divide by the length of the list but it was giving me an error so I chose this
+    for i in range(len(grades)):
+        _GPA = _GPA + grades[i]
+    _GPA = _GPA / i
+    return _GPA
 
 # main() FUNCTION
 def main():
@@ -75,8 +82,20 @@ def main():
         # Determine whether to apply a modifier
         numericGrade = Modifier(modifier, letterGrade, numericGrade)
 
-    # Output final message and result, with formatting
-    print("The numeric value is: {0:.1f}".format(numericGrade))
+        grades.append(numericGrade)
+        #GPA += numericGrade #incremented the value of GPA by the numeric class each loop so I can make it easy and divide it once at the end; Simplest solution I could think of
+    
+    #Final Oupt put section, trying to copy format shown in the sample output
+    print("*****************************************\n")
+    for i in range(len(classes)): #Same loop paremeters as above but different steps taken
+        print(f"The numeric value for {classes[i]} is: {grades[i]} ")
+    print("============================================")
+
+    # Calculate GPA and then Output final message/GPA
+    GPA = CalculateGPA(0) #Couldn't fix this in time
+    print(f"Your grade point average for the semester is: {GPA:.1f}")
+    print("============================================")
+    
 
 #PROGRAM EXECUTION STARTS HERE
 main()
