@@ -59,11 +59,11 @@ def ConvertLetterToNumber(_letterGrade):
         pass #TODO ERROR CHECKING WILL GO HERE    
     return _numericGrade
 
-def CalculateGPA(_GPA): #I had a simple solution to increment GPA by the numericValue each loop and then divide by the length of the list but it was giving me an error so I chose this
-    for i in range(len(grades)):
-        _GPA = _GPA + grades[i]
-    _GPA = _GPA / i
-    return _GPA
+# def CalculateGPA(_GPA): #I had a simple solution to increment GPA by the numericValue each loop and then divide by the length of the list but it was giving me an error so I chose this
+#     # for i in range(len(grades)):
+#     #     _GPA = _GPA + grades[i]
+#     # _GPA = _GPA / i
+#     return _GPA
 
 # main() FUNCTION
 def main():
@@ -92,10 +92,9 @@ def main():
     print("============================================")
 
     # Calculate GPA and then Output final message/GPA
-    GPA = CalculateGPA(0) #Couldn't fix this in time
+    GPA = sum(grades) / len(grades) #CalculateGPA(0) #Couldn't fix this in time
     print(f"Your grade point average for the semester is: {GPA:.1f}")
     print("============================================")
     
-
 #PROGRAM EXECUTION STARTS HERE
 main()
