@@ -4,37 +4,55 @@
 # to calculate a final grade point average for all six courses.
 ############################################
 
-# Student Name: 
+# Student Name: Alex Barr W0487099
 
-# main() FUNCTION
-def main():
-
+#Introduction Message Function
+def ProgramIntroduction():
     print("Grade Point Calculator\n")
     print("Valid letter grades that can be entered: A, B, C, D, F.")
     print("Valid grade modifiers are +, - or nothing.")
     print("All letter grades except F can include a + or - symbol.")
     print("Calculated grade point value cannot exceed 4.0.\n")
 
+#Get Letter Grade from user
+def GetLetterGrade():
+    return input("Please enter a letter grade : ").upper()
+
+#Get Modifier from user
+def GetModifier():
+    return input("Please enter a modifier (+, - or nothing) : ")
+
+#Convert letter grade to number
+def ConvertLetterToNumber(_letterGrade:str):
+    if _letterGrade == "A":
+        _numericGrade = 4.0
+    elif _letterGrade == "B":
+        _numericGrade = 3.0
+    elif _letterGrade == "C":
+        _numericGrade = 2.0
+    elif _letterGrade == "D":
+        _numericGrade = 1.0
+    elif _letterGrade == "F":
+        _numericGrade = 0.0
+    else:
+        #If an invalid entry is made
+        #print("You entered an invalid letter grade.") #come back to this later
+        pass #TODO ERROR CHECKING WILL GO HERE    
+    return _numericGrade
+
+# main() FUNCTION
+def main():
+
+    ProgramIntroduction() #Show introduction and instruction messages
+
     numericGrade = 0.0
 
     #Gather user inputs
-    letterGrade = input("Please enter a letter grade : ").upper()
-    modifier = input("Please enter a modifier (+, - or nothing) : ")
+    letterGrade = GetLetterGrade()
+    modifier = GetModifier()
 
     # Determine base numeric value of the grade
-    if letterGrade == "A":
-        numericGrade = 4.0
-    elif letterGrade == "B":
-        numericGrade = 3.0
-    elif letterGrade == "C":
-        numericGrade = 2.0
-    elif letterGrade == "D":
-        numericGrade = 1.0
-    elif letterGrade == "F":
-        numericGrade = 0.0
-    else:
-        #If an invalid entry is made
-        print("You entered an invalid letter grade.")
+    numericGrade = ConvertLetterToNumber()
     
     # Determine whether to apply a modifier
     if modifier == "+":
