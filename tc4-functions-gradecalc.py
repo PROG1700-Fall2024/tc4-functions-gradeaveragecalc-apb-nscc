@@ -22,6 +22,16 @@ def GetLetterGrade():
 def GetModifier():
     return input("Please enter a modifier (+, - or nothing) : ")
 
+#Modifier Math
+def Modifier(_modifier, _letterGrade, _numericGrade):
+    if _modifier == "+":
+        if _letterGrade != "A" and _letterGrade != "F": # Plus is not valid on A or F
+            _numericGrade += 0.3
+        elif _modifier == "-":
+            if _letterGrade != "F":     # Minus is not valid on F
+                _numericGrade -= 0.3
+    return _numericGrade
+
 #Convert letter grade to number
 def ConvertLetterToNumber(_letterGrade:str):
     if _letterGrade == "A":
@@ -52,15 +62,10 @@ def main():
     modifier = GetModifier()
 
     # Determine base numeric value of the grade
-    numericGrade = ConvertLetterToNumber()
+    numericGrade = ConvertLetterToNumber(letterGrade)
     
     # Determine whether to apply a modifier
-    if modifier == "+":
-        if letterGrade != "A" and letterGrade != "F": # Plus is not valid on A or F
-            numericGrade += 0.3
-    elif modifier == "-":
-        if letterGrade != "F":     # Minus is not valid on F
-            numericGrade -= 0.3
+    numericGrade = Modifier(modifier, letterGrade, numericGrade)
 
     # Output final message and result, with formatting
     print("The numeric value is: {0:.1f}".format(numericGrade))
