@@ -6,6 +6,13 @@
 
 # Student Name: Alex Barr W0487099
 
+#Initialization
+
+classes = ["PROG1700", "NETW1700", "OSYS1200", "WEBD1000", "DBAS1007"]
+numericGrade = 0.0 #Moved this here so it doesn't get messed up if I change main() too much
+finalGrade = [] #To hold final grades in corresponding indexes to classes list
+GPA = 0.0 #Final Grade Point Average (Normally I wouldn't use abbreviations/acronyms but everyone knows what a GPA is)
+
 #Introduction Message Function
 def ProgramIntroduction():
     print("Grade Point Calculator\n")
@@ -15,8 +22,8 @@ def ProgramIntroduction():
     print("Calculated grade point value cannot exceed 4.0.\n")
 
 #Get Letter Grade from user
-def GetLetterGrade():
-    return input("Please enter a letter grade : ").upper()
+def GetLetterGrade(_program): 
+    return input(f"Please enter a letter grade for {_program}: ").upper()
 
 #Get Modifier from user
 def GetModifier():
@@ -30,6 +37,7 @@ def Modifier(_modifier, _letterGrade, _numericGrade):
         elif _modifier == "-":
             if _letterGrade != "F":     # Minus is not valid on F
                 _numericGrade -= 0.3
+        #else TODO ERROR CHECKING WILL GO HERE  
     return _numericGrade
 
 #Convert letter grade to number
@@ -55,17 +63,17 @@ def main():
 
     ProgramIntroduction() #Show introduction and instruction messages
 
-    numericGrade = 0.0
+    for i in range(len(classes)): #Putting the main part of this code in a for loop, will do another loop below for the final output
+        #Gather user inputs
+        letterGrade = GetLetterGrade(classes[i])
+        modifier = GetModifier()
+        print("")
 
-    #Gather user inputs
-    letterGrade = GetLetterGrade()
-    modifier = GetModifier()
-
-    # Determine base numeric value of the grade
-    numericGrade = ConvertLetterToNumber(letterGrade)
-    
-    # Determine whether to apply a modifier
-    numericGrade = Modifier(modifier, letterGrade, numericGrade)
+        # Determine base numeric value of the grade
+        numericGrade = ConvertLetterToNumber(letterGrade)
+        
+        # Determine whether to apply a modifier
+        numericGrade = Modifier(modifier, letterGrade, numericGrade)
 
     # Output final message and result, with formatting
     print("The numeric value is: {0:.1f}".format(numericGrade))
